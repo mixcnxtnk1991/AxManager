@@ -1,22 +1,12 @@
-cat << 'EOF' > optimize.sh
 #!/bin/bash
-# AxManager - Gaming Optimization Script
-# Target: Low latency, No lag
+# AxManager - Fix for Multiple Devices
+SERIAL="192.168.1.16:43915"
 
-echo "Optimizing performance..."
+echo "Optimizing via ADB for $SERIAL..."
 
-# Clear background cache
-echo 3 > /proc/sys/vm/drop_caches
+# ระบุ -s เพื่อเลือกเครื่องที่เชื่อมต่ออยู่
+adb -s $SERIAL shell settings put global window_animation_scale 0.5
+adb -s $SERIAL shell settings put global transition_animation_scale 0.5
+adb -s $SERIAL shell settings put global animator_duration_scale 0.5
 
-# Set CPU Governor to Performance (if possible)
-# Note: Some non-root devices may have restrictions
-settings put global window_animation_scale 0.5
-settings put global transition_animation_scale 0.5
-settings put global animator_duration_scale 0.5
-
-echo "Done! Device is ready for gaming."
-EOF
-
-# ทำให้ไฟล์รันได้
-chmod +x optimize.sh
-
+echo "Optimization applied to $SERIAL successfully!"
